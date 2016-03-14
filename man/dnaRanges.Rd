@@ -1,7 +1,9 @@
 \name{dnaRanges}
 \alias{dnaRanges}
 \alias{dnaRanges-methods}
-\alias{dnaRanges,cRanges-method}
+%\alias{dnaRanges,cRanges-method}
+\alias{dnaRanges,cRanges,DNAStringSet,missing-method}
+\alias{dnaRanges,cRanges,DNAStringSet,logical-method}
 \title{Reads a bamRange object for a given \code{bamReader}, \code{refGenome} and gene name.}
 \description{Locates gene in genome via \code{refGenome} and reads a \code{bamRange} from the determined region.}
 \usage{
@@ -12,7 +14,7 @@ dnaRanges(x,dnaset,useStrand=TRUE,removeUnknownStrand=TRUE,verbose=TRUE,...)
   \item{x}{cRanges. Range-data will be copied from this object.}
   \item{dnaset}{DNAStringSet. Contains the reference sequence from which the DNA-sequence is extracted. }
   \item{useStrand}{logical. When TRUE, sequences for which strand='-' are reverse-complemented.}
-  \item{removeUnknownStrand}{logical. When TRUE, sequences for which strand='-' are removed.}
+  \item{removeUnknownStrand}{logical. When TRUE, sequences for which strand='*' are removed.}
   \item{verbose}{logical. Determines amount of console output during routine runtime.}
   \item{...}{Optional additional arguments (currently unused).}
 }

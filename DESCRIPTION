@@ -1,15 +1,16 @@
 Package: spliceSites
 Type: Package
-Title: Manages align gap positions from RNA-seq data
+Title: A bioconductor package for exploration of alignment gap
+        positions from RNA-seq data
 Version: 1.8.0
 Date: 2012-10-28
 Author: Wolfgang Kaisers
 Maintainer: Wolfgang Kaisers <kaisers@med.uni-duesseldorf.de>
-Description: Align gap positions from RNA-seq data
+Description: Performs splice centered analysis on RNA-seq data.
 License: GPL-2
-Depends: methods,rbamtools,refGenome (>= 1.1.2),doBy,Biobase,Biostrings
-        (>= 2.28.0),seqLogo
-Imports: BiocGenerics
+Depends: methods,rbamtools (>= 2.14.3),refGenome (>= 1.6.0),Biobase,Biostrings (>=
+        2.28.0)
+Imports: BiocGenerics,doBy,seqLogo,IRanges
 Collate: allClasses.r allGenerics.r c-methods.r dim-methods.r
         head-methods.r show-methods.r spliceSites.r
 biocViews: RNASeq, GeneExpression, DifferentialExpression, Proteomics
