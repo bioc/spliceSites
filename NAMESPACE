@@ -8,6 +8,8 @@ importFrom(doBy,summaryBy)
 importFrom(seqLogo,makePWM)
 importFrom(seqLogo,seqLogo)
 importFrom(IRanges,RleViewsList)
+importFrom("graphics", "barplot", "par")
+importFrom("utils", "read.table", "write.table")
 import(methods,rbamtools,refGenome,Biobase,Biostrings)
 export(
         alignGapList,
@@ -31,6 +33,7 @@ exportMethods(
     addHbond,
     addKeyTable,
     addGeneAligns,
+    addGenomeData,
     addMaxEnt,
     basedir,
     "basedir<-",

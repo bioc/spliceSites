@@ -53,5 +53,7 @@ Changelog :
 10.12.15  : 1.13.0 Corrected two errors seen on BioC-check
 15.02.16  : 1.15.0 Changed signature for dnaRanges and write.annDNA,
                    Added explanation for HBond calculation in write.annDNA
-
+01.10.16  : 1.19.2 Changed File extensions from *.r to *.R
+22.10.16  : 1.19.3 Removed transcript_id from annotate.expressionSet method
+26.10.16  : 1.19.5 Added addGenomeData function (including wgis score)
 
