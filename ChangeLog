@@ -56,4 +56,5 @@ Changelog :
 01.10.16  : 1.19.2 Changed File extensions from *.r to *.R
 22.10.16  : 1.19.3 Removed transcript_id from annotate.expressionSet method
 26.10.16  : 1.19.5 Added addGenomeData function (including wgis score)
+04.11.16  : 1.23.2 Changed wgis score (inclusion of score3)
 

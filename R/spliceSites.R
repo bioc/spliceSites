@@ -4166,8 +4166,8 @@ function(object, dna, junc)
     ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ##
 
     message("[addGenomeData] Add wgis score.")
-    
-    
+
+
     ## Columns nlstart and qsm may be missing when object is not created
     ## using readTabledBamGaps
     if(is.null(object@dt$nlstart)) {
@@ -4179,21 +4179,30 @@ function(object, dna, junc)
         message("[addGenomeData] 'qsm' column missing. Adding qsm=1.")
         object@dt$qsm <- 1
     }
-    
+
     # Remove NA values from maxEnt scores
     mx_na_val <- (-50)
-    mxep <- object@dt$mxe_ps5
-    mxep[is.na(mxep)] <- mx_na_val
+    mxep5 <- object@dt$mxe_ps5
+    mxep5[is.na(mxep5)] <- mx_na_val
 
-    mxen <- object@dt$mxe_ms5
-    mxen[is.na(mxen)] <- mx_na_val
+    mxen5 <- object@dt$mxe_ms5
+    mxen5[is.na(mxen5)] <- mx_na_val
+
+    mxep3 <- object@dt$mxe_ps3
+    mxep3[is.na(mxep3)] <- mx_na_val
+
+    mxen3 <- object@dt$mxe_ms3
+    mxen3[is.na(mxen3)] <- mx_na_val
 
     # Derive strand information from maxent score:
     # a) Determines whether mxe_ps5 or mxe_ms5 is used for wgis
     # b) Will be used as algebraic sign for score indicating strand
-    mxstrp <- mxep > mxen
-    mxe <- ifelse(mxstrp, mxep, mxen)
-    mxe <- pmax(mxe, 1)
+    mxstrp <- mxep5 > mxen5
+    mxe5 <- ifelse(mxstrp, mxep5, mxen5)
+    mxe5 <- pmax(mxe5, 1)
+
+    mxe3 <- ifelse(mxstrp, mxep3, mxen3)
+    mxe3 <- pmax(mxe3, 1)
 
     # Weighted version of nlstart values
     nlss <- (log2(log2(object@dt$nlstart) + 1) + 1)
@@ -4201,7 +4210,7 @@ function(object, dna, junc)
     qsms <- log2(log2(pmax(object@dt$qsm - 13, 2)))
 
     # WGIS = weighted gap information score (= gqmx1)
-    object@dt$wgis <- round(nlss * qsms * log2(mxe), 1)
+    object@dt$wgis <- round(nlss * qsms * log2(mxe5) * log2(mxe3), 1)
 
     # strand-factor:
     strfac <- (as.numeric(mxstrp) * 2) - 1
