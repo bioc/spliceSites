@@ -6,7 +6,7 @@
 % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - %
 \alias{gapSites-class}
 \alias{as.data.frame.gapSites}
-%\alias{[,gapSites-method}
+\alias{[,gapSites,ANY,ANY,ANY-method}
 \alias{c,gapSites-method}
 \alias{dim,gapSites-method}
 \alias{do_group_align_data}
@@ -82,7 +82,7 @@ positions on RNA-seq data.}
 % Description
 % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - %
 \description{
-Contains tabulated data on alignment gaps on RNA - seq data. 
+Contains tabulated data on alignment gaps on RNA - seq data.
 \code{"getalignGaps(reader,seqid)"} reads gapped alignments for the specified
 seqid from a BAM file (via CRAN rbamtools) into an object of class
 \code{"gapSites"}.
@@ -108,7 +108,7 @@ Objects can be created by calls of the form \code{alignGapList(reader)}.
             Optional data.frame containing annotation data.}
         %
         \item{\code{profile}:}{\code{dataFrameOrNULL} Optional.
-            Contains probe information (Name of BAM-file, 
+            Contains probe information (Name of BAM-file,
             group affiliation, number of sites).}
     }
 }
@@ -117,22 +117,22 @@ Objects can be created by calls of the form \code{alignGapList(reader)}.
 % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - %
 \section{Methods}{
     \describe{
-        \item{as.data.frame}{\code{signature(x = "gapSites")}: 
+        \item{as.data.frame}{\code{signature(x = "gapSites")}:
             Returns copy of contained data.frame.}
         %
-        \item{c}{\code{signature(x = "gapSites")}: 
+        \item{c}{\code{signature(x = "gapSites")}:
                 Specialisation of generic combine function.}
         %
         \item{dim}{\code{signature(x = "gapSites")}:
                 Specialisation of generic dim function.}
         %
-        \item{dnaGapSites}{\code{signature(x = "gapSites", dnaset="DNAStringSet")}: 
+        \item{dnaGapSites}{\code{signature(x = "gapSites", dnaset="DNAStringSet")}:
                 Create \code{dnaGapSites} object by adding DNA sequences.}
         %
         \item{getAnnStrand}{\code{signature(x)}:
                 Return strand vector based on annotation content.}
         %
-        \item{getProfile}{\code{signature(x)}: 
+        \item{getProfile}{\code{signature(x)}:
             Return profile table (data.frame) which contains BAM-file names,
             group affiliation and number of Sites.}
         %
@@ -142,8 +142,8 @@ Objects can be created by calls of the form \code{alignGapList(reader)}.
         \item{head}{\code{signature(x = "gapSites")}:
             Specialisation of generic head function.}
         %
-        \item{lrCodons}{\code{signature(x = "gapSites")}: Returns 
-            \code{gapSites} object where \code{lstart} and \code{rend} 
+        \item{lrCodons}{\code{signature(x = "gapSites")}: Returns
+            \code{gapSites} object where \code{lstart} and \code{rend}
                 positions are truncated toward the
                 next smaller full codon position (used for preparation
                 of translation to amino acid sequence)}
@@ -151,12 +151,12 @@ Objects can be created by calls of the form \code{alignGapList(reader)}.
         \item{lJunc}{\code{signature(x = "gapSites", featlen="numeric",
             gaplen="numeric", keepStrand="logical" (FALSE),
             unique="logical" (FALSE))}:
-            featlen: Number nucleotides of feature (=exon). 
+            featlen: Number nucleotides of feature (=exon).
             gaplen: Number of nucleotides of gap (=intron).
             keepStrand: Values for strand are copied from argument,
-                otherwise all positions are marked as "+". 
+                otherwise all positions are marked as "+".
             unique: Multiple identical positions (arising from alternative
-                splice sites on the right side) are collapsed to one line 
+                splice sites on the right side) are collapsed to one line
                 (number of sites is counted in "mult").
             Position: 0-based position of last exon nucleotide in DNA sequence.}
         %
@@ -164,7 +164,7 @@ Objects can be created by calls of the form \code{alignGapList(reader)}.
             rfeatlen="numeric", "strand")}:
             Returns \code{gapSites} object where positions are shifted so that
             given feature length's are present for \code{lstart} and \code{rend}
-            positions (used as preparatory steps for obtaining sensible 
+            positions (used as preparatory steps for obtaining sensible
             seq - logo's on exonic junction regions).}
         %
         \item{addGeneAligns}{\code{signature(object="gapSites")}:
@@ -172,7 +172,7 @@ Objects can be created by calls of the form \code{alignGapList(reader)}.
             alignment gap position table.
             Annotation tables must be present. Otherwise an error occurs.}
         %
-        \item{merge}{\code{signature(x = "gapSites", y = "ANY")}: 
+        \item{merge}{\code{signature(x = "gapSites", y = "ANY")}:
             Specialisation of generic merge (data.frame) function.}
         %
         \item{nAligns}{\code{signature(object = "gapSites")}:
@@ -187,7 +187,7 @@ Objects can be created by calls of the form \code{alignGapList(reader)}.
         \item{show}{\code{signature(object = "gapSites")}:
             Specialisation of generic show function.}
         %
-        \item{sortTable}{\code{signature(x="gapSites")}: 
+        \item{sortTable}{\code{signature(x="gapSites")}:
             Sorts all contained tables by seqid, lend and rstart.}
         %
         \item{write.annDNA.tables}{\code{signature(x="gapSites",
@@ -220,7 +220,7 @@ mbs
 getProfile(mbs)
 }
 % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - %
-% 
+%
 % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - %
 \keyword{classes}
 \keyword{gapSites}
