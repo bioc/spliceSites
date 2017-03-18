@@ -1479,9 +1479,9 @@ setMethod("lJuncStrand", "gapSites", function(x, featlen, gaplen, ...)
 setMethod("rJuncStrand", "gapSites", function(x, featlen, gaplen, ...)
 {
 
-    ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ##
+    ##------------------------------------------------------------------------##
     ## Prepare featlen and gaplen
-    ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ##
+    ##------------------------------------------------------------------------##
 
     if(!is.numeric(featlen))
         stop("featlen must be numeric!")
@@ -1498,7 +1498,7 @@ setMethod("rJuncStrand", "gapSites", function(x, featlen, gaplen, ...)
     featlen <- as.integer(featlen)
     gaplen <- as.integer(gaplen)
 
-    ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ##
+    ##------------------------------------------------------------------------##
     ##   gaplen        featlen
     ##        |        |
     ##        4321 12345
@@ -1507,7 +1507,7 @@ setMethod("rJuncStrand", "gapSites", function(x, featlen, gaplen, ...)
     ##             rstart
     ##
     ##
-    ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ##
+    ##------------------------------------------------------------------------##
 
     cr <- new("cRanges")
 
@@ -1523,9 +1523,9 @@ setMethod("rJuncStrand", "gapSites", function(x, featlen, gaplen, ...)
 
 setMethod("lrJuncStrand", "gapSites", function(x, lfeatlen, rfeatlen, ...)
 {
-    ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ##
+    ##------------------------------------------------------------------------##
     ## Prepare featlen and gaplen
-    ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ##
+    ##------------------------------------------------------------------------##
 
     if(missing(lfeatlen))
         stop("lfeatlen is not optional!")
@@ -3545,13 +3545,14 @@ setMethod("addMaxEnt", "gapSites", function(x, dna, maxent, digits=1)
 
         res@dt <- x@dt[!is.na(mtc), ]
         res@dt$seqid <- factor(res@dt$seqid)
+        mtc <- match(res@dt$id, dlj@dt$id)
     }
-
-    res@dt$mxe_ps5 <- round(score5(maxent, dlj@seq, featlen), digits)
+    res@dt$mxe_ps5 <- round(score5(maxent, dlj@seq[mtc], featlen), digits)
 
     rj <- rJunc(x, featlen, gaplen, strand="+", unique=FALSE)
     drj <- dnaRanges(rj, dna, useStrand=TRUE, verbose=FALSE)
-    res@dt$mxe_ps3 <- round(score3(maxent, drj@seq, gaplen), digits)
+    mtc <- match(res@dt$id, drj@dt$id)
+    res@dt$mxe_ps3 <- round(score3(maxent, drj@seq[mtc], gaplen), digits)
 
 
     ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ##
@@ -3559,11 +3560,13 @@ setMethod("addMaxEnt", "gapSites", function(x, dna, maxent, digits=1)
     ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ##
     rj <- rJunc(x, featlen, gaplen, strand="-", unique=FALSE)
     drj <- dnaRanges(rj, dna, useStrand=TRUE, verbose=FALSE)
-    res@dt$mxe_ms5 <- round(score5(maxent, drj@seq, featlen), digits)
+    mtc <- match(res@dt$id, drj@dt$id)
+    res@dt$mxe_ms5 <- round(score5(maxent, drj@seq[mtc], featlen), digits)
 
     lj <- lJunc(x, featlen, gaplen, strand="-", unique=FALSE)
     dlj <- dnaRanges(lj, dna, useStrand=TRUE, verbose=FALSE)
-    res@dt$mxe_ms3 <- round(score3(maxent, dlj@seq, gaplen), digits)
+    mtc <- match(res@dt$id, dlj@dt$id)
+    res@dt$mxe_ms3 <- round(score3(maxent, dlj@seq[mtc], gaplen), digits)
 
 
     ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ##
@@ -4157,7 +4160,9 @@ function(object, dna, junc)
     message("[addGenomeData] add right sequence data")
     fdrj <- rJunc(object, featlen=3, gaplen=8, strand="-")
     fdrjd <- dnaRanges(fdrj, dna)
-    object@dt$rjseq <- as.character(fdrjd@seq)
+    # rJunc is not in same order as object@dt
+    mtc <- match(object@dt$id, fdrjd@dt$id)
+    object@dt$rjseq <- as.character(fdrjd@seq[mtc])
     object@dt$rdin <- substr(object@dt$rjseq, 4, 5)
 
 
@@ -4197,11 +4202,11 @@ function(object, dna, junc)
     # Derive strand information from maxent score:
     # a) Determines whether mxe_ps5 or mxe_ms5 is used for wgis
     # b) Will be used as algebraic sign for score indicating strand
-    mxstrp <- mxep5 > mxen5
-    mxe5 <- ifelse(mxstrp, mxep5, mxen5)
+    mxstrp <- mxep3 > mxen3
+    mxe5 <- ifelse(mxep5 > mxen5, mxep5, mxen5)
     mxe5 <- pmax(mxe5, 1)
 
-    mxe3 <- ifelse(mxstrp, mxep3, mxen3)
+    mxe3 <- ifelse(mxep3 > mxen3, mxep3, mxen3)
     mxe3 <- pmax(mxe3, 1)
 
     # Weighted version of nlstart values
@@ -4216,8 +4221,15 @@ function(object, dna, junc)
     strfac <- (as.numeric(mxstrp) * 2) - 1
     object@dt$wgis <- object@dt$wgis * strfac
 
+    # GQL
+    message("[addGenomeData] Add GQL")
+    object@dt$gql <- 0
+    object@dt$gql[object@dt$wgis != 0]      <- 1
+    object@dt$gql[abs(object@dt$wgis) > 30] <- 2
+    object@dt$gql[abs(object@dt$wgis) > 80] <- 3
+
     tbl <- table(mxstrp)
-    message("[addGenomeData] MaxEnt score5 based strand: \t+: ",
+    message("[addGenomeData] MaxEnt score3 based strand: \t+: ",
             format(tbl["FALSE"], big.mark=bm), "\t-: ",
             format(tbl["TRUE"], big.mark=bm))
 

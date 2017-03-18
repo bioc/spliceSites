@@ -1,3 +1,15 @@
+CHANGES IN VERSION 1.23.5
+-------------------------
+
+    o Corrected two errors (addMaxEnt function and addGenomeData function)
+	Using the old version, errors in calculation of mxe_ps3, mxe_ms5 
+	and mxe_ms3 have occured. Also erroneus wgis values were calculated.
+
+
+BUG FIXES
+
+    o (none)
+
 CHANGES IN VERSION 1.19.0
 -------------------------
 

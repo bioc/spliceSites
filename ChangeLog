@@ -57,4 +57,4 @@ Changelog :
 22.10.16  : 1.19.3 Removed transcript_id from annotate.expressionSet method
 26.10.16  : 1.19.5 Added addGenomeData function (including wgis score)
 04.11.16  : 1.23.2 Changed wgis score (inclusion of score3)
-
+18.03.17  : 1.23.5 Corrected error in calculation of addMaxEnt and wgis
