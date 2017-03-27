@@ -48,6 +48,7 @@
 ##  29.01.14  : 1.1.3  Added NA handling for Strings in maxent and hbond     ##
 ##  11.11.14  : 1.3.3  Changed annotation procedure to overlapJuncs          ##
 ##  27.11.15  : 1.11.0 Submitted update to BioC-devel via svn                ##
+##  27.03.17  : 1.23.5 Submitted update (correction of addGenomeData)        ##
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ##
 
 .onUnload <- function(libpath) { library.dynam.unload("spliceSites", libpath) }
