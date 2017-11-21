@@ -1674,8 +1674,8 @@ setMethod("dnaGapSites",c("gapSites","DNAStringSet"),function(x, dnaset, strand)
     sqnames <- seqid(x)
     n <- length(dnames)
     seqs <- DNAStringSet()
-    lvl <- RleViewsList()
-    rvl <- RleViewsList()
+    lvl <- list()
+    rvl <- list()
 
     ## Create empty template
     ans <- x@dt[0]
