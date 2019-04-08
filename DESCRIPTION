@@ -2,7 +2,7 @@ Package: spliceSites
 Type: Package
 Title: A bioconductor package for exploration of alignment gap
         positions from RNA-seq data
-Version: 1.31.0
+Version: 1.31.1
 Date: 2017-03-27
 Author: Wolfgang Kaisers
 Maintainer: Wolfgang Kaisers <kaisers@med.uni-duesseldorf.de>
@@ -16,3 +16,4 @@ Collate: allClasses.R allGenerics.R c-methods.R dim-methods.R
         head-methods.R show-methods.R spliceSites.R
 Packaged: 2017-03-08 16:35:54 UTC; wolfgang
 NeedsCompilation: yes
+PackageStatus: Deprecated
